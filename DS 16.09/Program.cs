@@ -10,22 +10,26 @@ namespace DS_16._09
     class Program
     {
         static Paciente[] pacientes = new Paciente[15]; 
-        static void trocarpagina(int pagina) // Funçâo para que direcionar as paginas existentes (1: Adicionar, 2: Listar, 3: Atender).
+        static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender).
         {
             Console.Clear();
+            if (mensagem != null)
+            {
+                Console.WriteLine(mensagem+"\n");
+            }
             switch (pagina)
             {
                 case 0:
                     Main();
                     break;
                 case 1:
-                    paginaadicionar();
+                    PaginaAdicionar();
                     break;
                 case 2:
-
+                    PaginaVisualizar();
                     break;
                 case 3:
-
+                    PaginaAtender();
                     break;
                 default:
                     Console.WriteLine("Erro 404 pagina não encontrada");
@@ -33,17 +37,20 @@ namespace DS_16._09
                     break;
             }
         }
-        static void Main() //Pagina inicial - redireciona para outras partes do programa
+        static void Main() //Pagina Menu - Usada para que o usuario saiba onde ir.
         {
-            Console.WriteLine("Bem vindo ao hospital, você deseja:");
-            Console.WriteLine("1. Adicionar um paciente;\n2. Ver todos os pacientes atuais;\n3. Atender um paciente;\n");
-            int escolha = int.Parse(Console.ReadLine());
-            trocarpagina(escolha);
+            Console.WriteLine("Pagina menu, você deseja...");
+            Console.WriteLine("1. adicionar um paciente;\n2. ver todos os pacientes atuais;\n3. atender um paciente;\nq. sair do aplicativo.\n");
+            string escolha = Console.ReadLine();
+            if (!(escolha == "q" || escolha == "Q"))
+            {
+                TrocarPagina(int.Parse(escolha));
+            }
         }
-        static void paginaadicionar()
+        static void PaginaAdicionar() // Pagina Adicionar - Usada para que o Usuário possa adicionar um novo paciente
         {
             Paciente pacientenovo = new Paciente();
-            pacientenovo.Pedirnome();
+            pacientenovo.PedirNome();
             do
             {
                 Console.WriteLine("Qual é o preferencial do paciente? (Note: Maior = Mais preferencial)");
@@ -59,7 +66,46 @@ namespace DS_16._09
             {
                 if (pacientes[i] == null || pacientes[i].nivelpreferencial <= pacientenovo.nivelpreferencial)
                 {
+                    for (int j = pacientes.Length-1; j > i; j--)
+                    {
+                        pacientes[j] = pacientes[j - 1];
+                    }
+                    pacientes[i] = pacientenovo;
+                    break;
+                }
+            }
 
+            TrocarPagina(0, "Paciente adicionado!");
+        }
+        static void PaginaVisualizar()
+        {
+            Console.WriteLine("Aqui está uma lista de todos os pacientes, ordenado pela preferencia:\nNº da fila - Nome do Cliente - Nivel de preferencial");
+            for (int i = 0; i < pacientes.Length; i++)
+            {
+                if (pacientes[i] != null)
+                {
+                    Console.WriteLine("{0} - {1} - {2}", i + 1, pacientes[i].RetornarNome(), pacientes[i].nivelpreferencial);
+                }
+            }
+
+            Console.WriteLine("\nPressione qualquer tecla para voltar ao inicio.");
+            Console.ReadKey();
+            TrocarPagina(0);
+        }
+        static void PaginaAtender()
+        {
+            Console.WriteLine("O paciente que será tratado atualmente é o {0}, com uma preferencia de {1}.\n", pacientes[0].RetornarNome(), pacientes[0].nivelpreferencial);
+            Console.WriteLine("Pressione 1 para tratar o paciente, pressione outra letra para voltar ao Menu.");
+            int escolha = int.Parse(Console.ReadLine());
+            if (escolha == 1)
+            {
+                for (int i = 0; i < pacientes.Length; i++)
+                {
+                    pacientes[i] = pacientes[i + 1];
+                    if (i == pacientes.Length-1)
+                    {
+                        pacientes[i] = null;
+                    }
                 }
             }
         }

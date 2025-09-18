@@ -11,11 +11,11 @@ namespace DS_16._09
         private string nome;
         public int nivelpreferencial; // Quanto maior = Mais preferencial
 
-        public string Retornarnome()
+        public string RetornarNome()
         {
             return nome;
         }
-        public void Pedirnome()
+        public void PedirNome()
         {
             Console.WriteLine("Digite o nome do paciente:");
             nome = Console.ReadLine();
