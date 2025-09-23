@@ -30,8 +30,7 @@ namespace DS_16._09
                     Adeus();
                     break;
                 default:
-                    Console.WriteLine("Erro 404 pagina não encontrada");
-                    Main();
+                    TrocarPagina(0, "Erro 404 pagina não encontrada");
                     break;
             }
         }
@@ -40,7 +39,21 @@ namespace DS_16._09
             Console.WriteLine("Pagina menu, você deseja:");
             Console.WriteLine("1. adicionar um paciente;\n2. ver todos os pacientes atuais;\n3. atender um paciente;\nq. sair do aplicativo.\n");
             string escolha = Console.ReadLine().ToUpper();
-            TrocarPagina(escolha == "Q" ? 4 : int.Parse(escolha));
+            if (escolha != "Q")
+            {
+                if (int.Parse(escolha) < 4)
+                {
+                    TrocarPagina(int.Parse(escolha));
+                }
+                else
+                {
+                    TrocarPagina(0, "Você não colocou uma opção possivel.");
+                }
+            }
+            else
+            {
+                TrocarPagina(4);
+            }
         }
         static void PaginaAdicionar() // Pagina Adicionar - Usada para que o Usuário possa adicionar um novo paciente
         {
