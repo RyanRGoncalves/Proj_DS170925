@@ -11,10 +11,9 @@ namespace DS_16._09
         {
             return nome;
         }
-        public void PedirNome()
+        public void AlterarNome(string nome)
         {
-            Console.WriteLine("Digite o nome do paciente:");
-            nome = Console.ReadLine();
+            this.nome = nome;
         }
     }
 }
