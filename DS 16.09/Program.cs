@@ -8,7 +8,7 @@ namespace DS_16._09
         static Paciente[] pacientes = new Paciente[15];
         static void Main()
         {
-            /*pacientes[0] = new Paciente(); -- Proposito para testes
+            pacientes[0] = new Paciente(); //-- Proposito para testes
             pacientes[0].AlterarNome("Ryan");
             pacientes[0].nivelpreferencial = 3;
             pacientes[1] = new Paciente();
@@ -19,7 +19,7 @@ namespace DS_16._09
             pacientes[2].nivelpreferencial = 2;
             pacientes[3] = new Paciente();
             pacientes[3].AlterarNome("SunRise");
-            pacientes[3].nivelpreferencial = 1;*/
+            pacientes[3].nivelpreferencial = 1;
             PaginaMenu();
         }
         static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender, 4: Saida).
@@ -95,7 +95,7 @@ namespace DS_16._09
 
                 for (int i = 0; i < pacientes.Length; i++)
                 {
-                    if (pacientes[i] == null || pacientes[i].nivelpreferencial <= pacientenovo.nivelpreferencial)
+                    if (pacientes[i] == null || pacientes[i].nivelpreferencial < pacientenovo.nivelpreferencial)
                     {
                         for (int j = pacientes.Length - 1; j > i; j--)
                         {
@@ -116,29 +116,38 @@ namespace DS_16._09
         }
         static void PaginaVisualizar()
         {
-            Console.WriteLine("Aqui está uma lista de todos os pacientes, ordenado pela preferencia:\nNº da fila - Nome do Cliente - Nivel de preferencial");
-            for (int i = 0; i < pacientes.Length; i++)
+            if (pacientes[0] != null)
             {
-                if (pacientes[i] != null)
+                Console.WriteLine("Aqui está uma lista de todos os pacientes, ordenado pela preferencia:\nNº da fila - Nome do Cliente - Nivel de preferencial");
+                for (int i = 0; i < pacientes.Length; i++)
                 {
-                    Console.WriteLine("{0} - {1} - {2}", i + 1, pacientes[i].RetornarNome(), pacientes[i].nivelpreferencial);
+                    if (pacientes[i] != null)
+                    {
+                        Console.WriteLine("{0} - {1} - {2}", i + 1, pacientes[i].RetornarNome(), pacientes[i].nivelpreferencial);
+                    }
                 }
-            }
 
-            Console.WriteLine("\nPressione o número do cliente para alterar seu cadastro, aperte 0 para voltar ao inicio.");
-            int escolha = int.Parse(Console.ReadLine());
-            if (escolha != 0 && escolha >= 1 && escolha <= 15)
-            {
-                Console.Clear();
-                PaginaAlterar(pacientes[escolha-1], escolha-1);
-            }
-            else if (escolha == 0)
-            {
-                TrocarPagina(0, "Nenhum cliente foi alterado.");
+                Console.WriteLine("\nPressione o número do cliente para alterar seu cadastro, aperte 0 para voltar ao inicio.");
+                int escolha = int.Parse(Console.ReadLine());
+                if (escolha != 0 && escolha >= 1 && escolha <= 15)
+                {
+                    Console.Clear();
+                    PaginaAlterar(pacientes[escolha-1], escolha-1);
+                }
+                else if (escolha == 0)
+                {
+                    TrocarPagina(0, "Nenhum cliente foi alterado.");
+                }
+                else
+                {
+                    TrocarPagina(0, "Não foi dada uma opção valida.");
+                }
             }
             else
             {
-                TrocarPagina(0, "Não foi dada uma opção valida.");
+                Console.WriteLine("Não há nenhum paciente na fila atualmente.\nAperte qualquer tecla para voltar ao inicio.");
+                Console.ReadKey();
+                TrocarPagina(0);
             }
         }
         static void PaginaAtender()
