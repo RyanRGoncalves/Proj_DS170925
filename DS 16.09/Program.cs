@@ -150,10 +150,13 @@ namespace DS_16._09
                 ConsoleKeyInfo escolha = Console.ReadKey();
                 if (escolha.KeyChar == '1')
                 {
-                    for (int i = 0; i < pacientes.Length - 1; i++)
+                    for (int i = 0; i < pacientes.Length; i++)
                     {
-                        pacientes[i] = pacientes[i + 1];
-                        if (i == pacientes.Length - 1)
+                        if (i != pacientes.Length - 1)
+                        {
+                            pacientes[i] = pacientes[i + 1];
+                        }
+                        else
                         {
                             pacientes[i] = null;
                         }
