@@ -195,11 +195,18 @@ namespace DS_16._09
                 } while (paciente.nivelpreferencial < 0);
 
                 pacientes[locallista] = null;
-                for (int i = locallista; i < pacientes.Length-1; i++)
+                for (int i = locallista; i < pacientes.Length; i++)
                 {
-                    pacientes[i] = pacientes[i + 1];
+                    if (i != pacientes.Length - 1)
+                    {
+                        pacientes[i] = pacientes[i + 1];
+                    }
+                    else
+                    {
+                        pacientes[i] = null;
+                    }
                 }
-                pacientes[pacientes.Length - 1] = null;
+
                 for (int i = 0; i < pacientes.Length; i++)
                 {
                     if (pacientes[i] == null || pacientes[i].nivelpreferencial <= paciente.nivelpreferencial)
