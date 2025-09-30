@@ -22,7 +22,7 @@ namespace DS_16._09
             pacientes[3].nivelpreferencial = 1;*/
             PaginaMenu();
         }
-        static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender).
+        static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender, 4: Saida).
         {
             Console.Clear();
             if (mensagem != null)
@@ -58,7 +58,7 @@ namespace DS_16._09
             string escolha = Console.ReadLine().ToUpper();
             if (escolha != "Q")
             {
-                if (int.Parse(escolha) < 4)
+                if (int.Parse(escolha) > 0 && int.Parse(escolha) < 4)
                 {
                     TrocarPagina(int.Parse(escolha));
                 }
@@ -67,9 +67,13 @@ namespace DS_16._09
                     TrocarPagina(0, "Você não colocou uma opção possivel.");
                 }
             }
-            else
+            else if (escolha == "Q")
             {
                 TrocarPagina(4);
+            }
+            else
+            {
+                TrocarPagina(0, "Você não colocou uma opção possivel.");
             }
         }
         static void PaginaAdicionar() // Pagina Adicionar - Usada para que o Usuário possa adicionar um novo paciente
@@ -187,18 +191,6 @@ namespace DS_16._09
                     }
                 } while (paciente.nivelpreferencial < 0);
 
-                /*for (int i = 0; i < pacientes.Length; i++)
-                {
-                    if (pacientes[i] == null || pacientes[i].nivelpreferencial <= paciente.nivelpreferencial)
-                    {
-                        for (int j = locallista; j > i; j--)
-                        {
-                            pacientes[j] = pacientes[j - 1];
-                        }
-                        pacientes[i] = paciente;
-                        break;
-                    }
-                }*/
                 pacientes[locallista] = null;
                 for (int i = locallista; i < pacientes.Length-1; i++)
                 {
