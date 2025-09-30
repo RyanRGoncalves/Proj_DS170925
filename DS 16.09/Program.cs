@@ -218,7 +218,7 @@ namespace DS_16._09
 
                 for (int i = 0; i < pacientes.Length; i++)
                 {
-                    if (pacientes[i] == null || pacientes[i].nivelpreferencial <= paciente.nivelpreferencial)
+                    if (pacientes[i] == null || pacientes[i].nivelpreferencial < paciente.nivelpreferencial)
                     {
                         for (int j = pacientes.Length - 1; j > i; j--)
                         {
