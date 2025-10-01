@@ -19,7 +19,7 @@ namespace DS_16._09
             pacientes[2].nivelpreferencial = 2;
             pacientes[3] = new Paciente();
             pacientes[3].AlterarNome("SunRise");
-            pacientes[3].nivelpreferencial = 1; */
+            pacientes[3].nivelpreferencial = 1;*/
             PaginaMenu();
         }
         static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender, 4: Saida).
@@ -43,9 +43,6 @@ namespace DS_16._09
                 case 3:
                     PaginaAtender();
                     break;
-                case 4:
-                    Adeus();
-                    break;
                 default:
                     TrocarPagina(0, "Erro 404 pagina não encontrada");
                     break;
@@ -56,20 +53,18 @@ namespace DS_16._09
             Console.WriteLine("Pagina menu, você deseja:");
             Console.WriteLine("1. adicionar um paciente;\n2. visualizar e/ou alterar todos os pacientes atuais;\n3. atender um paciente;\nq. sair do aplicativo.\n");
             string escolha = Console.ReadLine().ToUpper();
-            if (escolha != "Q")
+            if (escolha == "Q" || escolha == "1" || escolha == "2" || escolha == "3")
             {
-                if (int.Parse(escolha) > 0 && int.Parse(escolha) < 4)
+                if (escolha == "Q")
                 {
-                    TrocarPagina(int.Parse(escolha));
+                    Console.Clear();
+                    Console.WriteLine("Obrigado por usar o nosso aplicativo.\nAperte qualquer tecla para fechar o aplicativo por completo.");
+                    Console.ReadKey(true);
                 }
                 else
                 {
-                    TrocarPagina(0, "Você não colocou uma opção possivel.");
+                    TrocarPagina(int.Parse(escolha));
                 }
-            }
-            else if (escolha == "Q")
-            {
-                TrocarPagina(4);
             }
             else
             {
@@ -234,11 +229,6 @@ namespace DS_16._09
             {
                 TrocarPagina(0, "Os dados do cliente " + paciente.RetornarNome() + " não foram alterados.");
             }
-        }
-        static void Adeus()
-        {
-            Console.WriteLine("Obrigado por usar o nosso aplicativo.\nAperte qualquer tecla para fechar o aplicativo por completo.");
-            Console.ReadKey(true);
         }
     }
 } 
