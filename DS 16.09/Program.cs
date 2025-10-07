@@ -8,7 +8,7 @@ namespace DS_16._09
         static Paciente[] pacientes = new Paciente[15];
         static void Main()
         {
-            /*pacientes[0] = new Paciente(); //-- Proposito para testes
+            pacientes[0] = new Paciente(); //-- Proposito para testes
             pacientes[0].AlterarNome("Ryan");
             pacientes[0].nivelpreferencial = 3;
             pacientes[1] = new Paciente();
@@ -19,7 +19,7 @@ namespace DS_16._09
             pacientes[2].nivelpreferencial = 2;
             pacientes[3] = new Paciente();
             pacientes[3].AlterarNome("SunRise");
-            pacientes[3].nivelpreferencial = 1;*/
+            pacientes[3].nivelpreferencial = 1;
             PaginaMenu();
         }
         static void TrocarPagina(int pagina, string mensagem = null) // Funçâo para que direcionar as paginas existentes (0: Menu, 1: Adicionar, 2: Listar, 3: Atender, 4: Saida).
@@ -124,10 +124,13 @@ namespace DS_16._09
 
                 Console.WriteLine("\nPressione o número do cliente para alterar seu cadastro, aperte 0 para voltar ao inicio.");
                 int escolha = int.Parse(Console.ReadLine());
-                if (escolha != 0 && escolha >= 1 && escolha <= 15)
+                if (escolha >= 1 && escolha <= 15 && pacientes[escolha-1] != null)
                 {
-                    Console.Clear();
-                    PaginaAlterar(pacientes[escolha-1], escolha-1);
+                    if (pacientes[escolha-1] != null)
+                    {
+                        Console.Clear();
+                        PaginaAlterar(pacientes[escolha - 1], escolha - 1);
+                    }
                 }
                 else if (escolha == 0)
                 {
@@ -165,8 +168,11 @@ namespace DS_16._09
                             pacientes[i] = null;
                         }
                     }
+                    TrocarPagina(0, "O paciente foi atendido.");
+                } else
+                {
+                    TrocarPagina(0, "O paciente não foi atendido.");
                 }
-                TrocarPagina(0);
             } else
             {
                 Console.WriteLine("Não há nenhum paciente para atender.\nAperte qualquer tecla para voltar ao inicio.");
